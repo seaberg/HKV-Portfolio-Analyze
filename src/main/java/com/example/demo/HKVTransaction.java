@@ -9,6 +9,7 @@ public class HKVTransaction {
 	private BigDecimal Price;
 	private BigDecimal TransactionFee;
 	private int Amount;
+	private HKVTransactionType TransactionType;
 	
 	public String getStockName() {
 		return StockName;
@@ -40,4 +41,10 @@ public class HKVTransaction {
 	public void setAmount(int amount) {
 		Amount = amount;
 	}
+	public HKVTransactionType getTransactionType() {
+		return TransactionType;
+	}
+	public void setTransactionType(HKVTransactionType transactionType) {
+		TransactionType = transactionType;
+	}	
 }

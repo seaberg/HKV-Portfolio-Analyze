@@ -7,7 +7,9 @@ public class HKVPortfolioFileReader {
 		
 		//Open file
 		
-		//
+		//Read lines
+		
+		//If 
 	}
 	
 	public int Number() {
