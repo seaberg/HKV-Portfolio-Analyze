@@ -9,19 +9,6 @@ import junit.framework.Assert;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class HkvPortfolioAnalyzeApplicationTests {
-
-//	@Test
-//	public void contextLoads() {
-//	}
-	
-	@Test
-	public void NumberTest() {
-		HKVPortfolioFileReader preader = new HKVPortfolioFileReader();
-		
-		int result = preader.Number();
-		
-		Assert.assertEquals(1, result);
-	}
 	
 	@Test
 	public void ReadFileTest() {
@@ -40,5 +27,4 @@ public class HkvPortfolioAnalyzeApplicationTests {
 		
 		Assert.assertEquals(stockName, transaction.getStockName());
 	}
-
 }
