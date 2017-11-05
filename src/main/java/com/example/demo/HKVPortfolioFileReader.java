@@ -20,18 +20,26 @@ public class HKVPortfolioFileReader {
 			e.printStackTrace();
 		}
 		
-		//System.out.println(contents);
-		
 		//Split lines
 		String[] lines = contents.split("\n");
 		
 		for(int i = 0; i < lines.length; i++)
 		{
 			System.out.println(lines[i]);
+			
+			//Check line type
+			String currentStockName = null;
+			if(lines[i].startsWith("#VP")) {
+				//Extract stock name and set currentStockName
+			}
 		}
 		
-		//Check line transaction type
+
 	}
+	
+//	private HKVTransactionType DetermineTransactionType(String line) {
+//		if(line.startsWith("))
+//	}
 	
 	public int Number() {
 		return 1;
