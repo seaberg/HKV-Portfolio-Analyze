@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +16,13 @@ public class HkvPortfolioAnalyzeApplicationTests {
 	public void ReadFileTest() {
 		HKVPortfolioFileReader preader = new HKVPortfolioFileReader();
 		
-		preader.ReadFile();
+		try {
+			preader.ReadFile();	
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}		
 	}
 	
 	@Test

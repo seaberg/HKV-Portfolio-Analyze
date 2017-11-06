@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.awt.List;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -24,13 +23,14 @@ public class HKVPortfolioFileReader {
 		//Split lines
 		String[] lines = contents.split("\n");
 		
+		String currentStockName = null;
+		Vector<HKVTransaction> transactions = new Vector<HKVTransaction>();
+		
 		for(int i = 0; i < lines.length; i++)
 		{
 			//System.out.println(lines[i]);
 			
-			//Check line type
-			Vector<HKVTransaction> transactions = new Vector<HKVTransaction>();
-			String currentStockName = null;
+			//Check line type	
 			if(lines[i].startsWith("#VP")) {
 				//Extract stock name and set currentStockName
 				currentStockName = ExtractStockName(lines[i]);				 
@@ -53,7 +53,7 @@ public class HKVPortfolioFileReader {
 	private String ExtractStockName(String line) {
 		//#VP "Nolato B" "" SE0000109811 0 1 
 		//Capture stock name
-		String pattern = "#VP \"([A-Za-z0-9 ]+)\"";
+		String pattern = "#VP \"([A-Za-z0-9åäöÅÄÖ.& ]+)\"";
 		Pattern regex = Pattern.compile(pattern);
 		Matcher m = regex.matcher(line);
 		

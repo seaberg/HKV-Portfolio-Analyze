@@ -11,6 +11,10 @@ public class HKVTransaction {
 	private int Amount;
 	private HKVTransactionType TransactionType;
 	
+	public HKVTransaction() {
+		StockName = "";
+	}
+	
 	public HKVTransaction(String stockName, Date transactionDate, BigDecimal price, BigDecimal transactionFee,
 			int amount, HKVTransactionType transactionType) {
 		super();
