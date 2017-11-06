@@ -37,6 +37,8 @@ public class HKVPortfolioFileReader {
 			}
 			else if(lines[i].startsWith("#KÖP")) {
 				EnsureStockNameIsSet(currentStockName);
+				//Capture info from line
+				//#KÖP 2014-07-16 30 165.5 99 5064
 			}
 			else if(lines[i].startsWith("#SÄLJ")) {
 				EnsureStockNameIsSet(currentStockName);
