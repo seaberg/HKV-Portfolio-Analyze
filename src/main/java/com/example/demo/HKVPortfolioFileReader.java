@@ -39,7 +39,7 @@ public class HKVPortfolioFileReader {
 	private String ExtractStockName(String line) {
 		//#VP "Nolato B" "" SE0000109811 0 1 
 		//Capture stock name
-		String pattern = "#VP \"([A-Za-z0-9]+)\"";
+		String pattern = "#VP \"([A-Za-z0-9 ]+)\"";
 		Pattern regex = Pattern.compile(pattern);
 		Matcher m = regex.matcher(line);
 		
