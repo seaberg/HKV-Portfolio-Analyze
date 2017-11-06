@@ -11,6 +11,17 @@ public class HKVTransaction {
 	private int Amount;
 	private HKVTransactionType TransactionType;
 	
+	public HKVTransaction(String stockName, Date transactionDate, BigDecimal price, BigDecimal transactionFee,
+			int amount, HKVTransactionType transactionType) {
+		super();
+		StockName = stockName;
+		TransactionDate = transactionDate;
+		Price = price;
+		TransactionFee = transactionFee;
+		Amount = amount;
+		TransactionType = transactionType;
+	}
+	
 	public String getStockName() {
 		return StockName;
 	}

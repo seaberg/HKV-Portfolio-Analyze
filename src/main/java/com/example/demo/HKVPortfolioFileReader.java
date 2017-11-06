@@ -1,16 +1,17 @@
 package com.example.demo;
 
+import java.awt.List;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HKVPortfolioFileReader {
-	
-	public void ReadFile() {		
-		//Open file
+	public void ReadFile() throws IOException {		
+		//Read file
 		String contents = null;
 		
 		try {
@@ -28,11 +29,24 @@ public class HKVPortfolioFileReader {
 			//System.out.println(lines[i]);
 			
 			//Check line type
+			Vector<HKVTransaction> transactions = new Vector<HKVTransaction>();
 			String currentStockName = null;
 			if(lines[i].startsWith("#VP")) {
 				//Extract stock name and set currentStockName
 				currentStockName = ExtractStockName(lines[i]);				 
 			}
+			else if(lines[i].startsWith("#KÖP")) {
+				EnsureStockNameIsSet(currentStockName);
+			}
+			else if(lines[i].startsWith("#SÄLJ")) {
+				EnsureStockNameIsSet(currentStockName);
+			}			
+			else if(lines[i].startsWith("#SPLIT")) {
+				EnsureStockNameIsSet(currentStockName);
+			}			
+			else if(lines[i].startsWith("#UTDELNING")) {
+				EnsureStockNameIsSet(currentStockName);
+			}			
 		}
 	}
 	
@@ -53,7 +67,9 @@ public class HKVPortfolioFileReader {
 		}
 	}
 	
-//	private HKVTransactionType DetermineTransactionType(String line) {
-//		if(line.startsWith("))
-//	}
+	private void EnsureStockNameIsSet(String currentStockName) throws IOException {
+		if(currentStockName == null) {
+			throw new IOException("CurrentStockName not set!");
+		}
+	}
 }
