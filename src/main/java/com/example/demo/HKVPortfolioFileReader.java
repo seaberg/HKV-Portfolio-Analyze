@@ -39,9 +39,12 @@ public class HKVPortfolioFileReader {
 				EnsureStockNameIsSet(currentStockName);
 				//Capture info from line
 				//#KÖP 2014-07-16 30 165.5 99 5064
+				ParseTransactionFromLine(lines[i]);
 			}
 			else if(lines[i].startsWith("#SÄLJ")) {
 				EnsureStockNameIsSet(currentStockName);
+				//Capture info from line
+				//#SÄLJ 2014-10-10 30 153.5 99 4506
 			}			
 			else if(lines[i].startsWith("#SPLIT")) {
 				EnsureStockNameIsSet(currentStockName);
@@ -49,6 +52,22 @@ public class HKVPortfolioFileReader {
 			else if(lines[i].startsWith("#UTDELNING")) {
 				EnsureStockNameIsSet(currentStockName);
 			}			
+		}
+	}
+	
+	private void ParseTransactionFromLine(String line) {
+		//#KÖP 2014-07-16 30 165.5 99 5064
+		String buyPattern = "#KÖP ([0-9-]+) ([0-9]+) ([0-9.]+) ([0-9.]+) ([0-9.]+)";
+		Pattern regex = Pattern.compile(buyPattern);
+		Matcher m = regex.matcher(line);
+		
+		if(m.find()) {
+			System.out.println("Date: " + m.group(1));
+			System.out.println("Volume: " + m.group(2));
+			System.out.println("Price: " + m.group(3));
+			System.out.println("Fee: " + m.group(4));
+			System.out.println("Amount: " + m.group(5));
+			System.out.println("**********************");
 		}
 	}
 	
