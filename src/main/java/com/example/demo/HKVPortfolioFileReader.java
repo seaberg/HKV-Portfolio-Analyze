@@ -1,9 +1,11 @@
 package com.example.demo;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +41,7 @@ public class HKVPortfolioFileReader {
 				EnsureStockNameIsSet(currentStockName);
 				//Capture info from line
 				//#KÖP 2014-07-16 30 165.5 99 5064
-				ParseTransactionFromLine(lines[i]);
+				ParseTransactionFromLine(currentStockName, lines[i]);
 			}
 			else if(lines[i].startsWith("#SÄLJ")) {
 				EnsureStockNameIsSet(currentStockName);
@@ -55,7 +57,7 @@ public class HKVPortfolioFileReader {
 		}
 	}
 	
-	private void ParseTransactionFromLine(String line) {
+	private void ParseTransactionFromLine(String stockName, String line) {
 		//#KÖP 2014-07-16 30 165.5 99 5064
 		String buyPattern = "#KÖP ([0-9-]+) ([0-9]+) ([0-9.]+) ([0-9.]+) ([0-9.]+)";
 		Pattern regex = Pattern.compile(buyPattern);
@@ -68,6 +70,14 @@ public class HKVPortfolioFileReader {
 			System.out.println("Fee: " + m.group(4));
 			System.out.println("Amount: " + m.group(5));
 			System.out.println("**********************");
+			
+			//TODO: Fix this! :)
+			HKVTransaction transaction = new HKVTransaction(stockName,
+					new Date(m.group(1)),
+					new BigDecimal(m.group(3)),
+					new BigDecimal(m.group(4)),
+					Integer.parseInt(m.group(2)),
+					HKVTransactionType.BUY);
 		}
 	}
 	

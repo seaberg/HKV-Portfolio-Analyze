@@ -1,14 +1,14 @@
 package com.example.demo;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 public class HKVTransaction {
 	private String StockName;
 	private Date TransactionDate;
 	private BigDecimal Price;
 	private BigDecimal TransactionFee;
-	private int Amount;
+	private int volume;
 	private HKVTransactionType TransactionType;
 	
 	public HKVTransaction() {
@@ -16,13 +16,13 @@ public class HKVTransaction {
 	}
 	
 	public HKVTransaction(String stockName, Date transactionDate, BigDecimal price, BigDecimal transactionFee,
-			int amount, HKVTransactionType transactionType) {
+			int vol, HKVTransactionType transactionType) {
 		super();
 		StockName = stockName;
 		TransactionDate = transactionDate;
 		Price = price;
 		TransactionFee = transactionFee;
-		Amount = amount;
+		volume = vol;
 		TransactionType = transactionType;
 	}
 	
@@ -51,10 +51,10 @@ public class HKVTransaction {
 		TransactionFee = transactionFee;
 	}
 	public int getAmount() {
-		return Amount;
+		return volume;
 	}
-	public void setAmount(int amount) {
-		Amount = amount;
+	public void setAmount(int vol) {
+		volume = vol;
 	}
 	public HKVTransactionType getTransactionType() {
 		return TransactionType;
