@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -41,7 +42,12 @@ public class HKVPortfolioFileReader {
 				EnsureStockNameIsSet(currentStockName);
 				//Capture info from line
 				//#KÖP 2014-07-16 30 165.5 99 5064
-				ParseTransactionFromLine(currentStockName, lines[i]);
+				try {
+					transactions.add(ParseTransactionFromLine(currentStockName, lines[i]));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else if(lines[i].startsWith("#SÄLJ")) {
 				EnsureStockNameIsSet(currentStockName);
@@ -57,7 +63,7 @@ public class HKVPortfolioFileReader {
 		}
 	}
 	
-	private void ParseTransactionFromLine(String stockName, String line) {
+	private HKVTransaction ParseTransactionFromLine(String stockName, String line) throws Exception {
 		//#KÖP 2014-07-16 30 165.5 99 5064
 		String buyPattern = "#KÖP ([0-9-]+) ([0-9]+) ([0-9.]+) ([0-9.]+) ([0-9.]+)";
 		Pattern regex = Pattern.compile(buyPattern);
@@ -71,13 +77,20 @@ public class HKVPortfolioFileReader {
 			System.out.println("Amount: " + m.group(5));
 			System.out.println("**********************");
 			
-			//TODO: Fix this! :)
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = dateFormatter.parse(m.group(1));
+			
 			HKVTransaction transaction = new HKVTransaction(stockName,
-					new Date(m.group(1)),
+					date,
 					new BigDecimal(m.group(3)),
 					new BigDecimal(m.group(4)),
 					Integer.parseInt(m.group(2)),
 					HKVTransactionType.BUY);
+			return transaction;
+		}
+		else
+		{
+			throw new Exception("Unabled to parse transaction from line: " + line);
 		}
 	}
 	

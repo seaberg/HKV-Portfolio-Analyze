@@ -17,7 +17,7 @@ public class HkvPortfolioAnalyzeApplicationTests {
 		HKVPortfolioFileReader preader = new HKVPortfolioFileReader();
 		
 		try {
-			preader.ReadFile();	
+			preader.ReadFile();
 		}
 		catch(IOException e)
 		{
