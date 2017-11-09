@@ -70,21 +70,24 @@ public class HKVPortfolioFileReader {
 		Matcher m = regex.matcher(line);
 		
 		if(m.find()) {
-			System.out.println("Date: " + m.group(1));
-			System.out.println("Volume: " + m.group(2));
-			System.out.println("Price: " + m.group(3));
-			System.out.println("Fee: " + m.group(4));
-			System.out.println("Amount: " + m.group(5));
-			System.out.println("**********************");
+//			System.out.println("Date: " + m.group(1));
+//			System.out.println("Volume: " + m.group(2));
+//			System.out.println("Price: " + m.group(3));
+//			System.out.println("Fee: " + m.group(4));
+//			System.out.println("Amount: " + m.group(5));
+//			System.out.println("**********************");
 			
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = dateFormatter.parse(m.group(1));
+			int volume = Integer.parseInt(m.group(2));
+			BigDecimal price = new BigDecimal(m.group(3));
+			BigDecimal fee = new BigDecimal(m.group(4));			
 			
 			HKVTransaction transaction = new HKVTransaction(stockName,
 					date,
-					new BigDecimal(m.group(3)),
-					new BigDecimal(m.group(4)),
-					Integer.parseInt(m.group(2)),
+					price,
+					fee,
+					volume,
 					HKVTransactionType.BUY);
 			return transaction;
 		}
