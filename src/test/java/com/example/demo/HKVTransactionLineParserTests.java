@@ -2,6 +2,8 @@ package com.example.demo;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,16 +22,32 @@ public class HKVTransactionLineParserTests {
 	}
 
 	@Test
-	public void TestParseBuyLine() {
+	public void TestParseBuyLine() throws Exception {
 		//Arrange
+		HKVTransactionLineParser lineParser = new HKVTransactionLineParser();		
 		String buyLine = "#KÖP 2014-07-16 30 165.5 99 5064";
 		
+		//There is probably a better way to create a new Date instance
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date transactionDate = dateFormatter.parse("2014-07-16");		
+		
 		HKVTransaction expectedTransaction = new HKVTransaction();
+		expectedTransaction.setStockName("");
+		expectedTransaction.setTransactionType(HKVTransactionType.BUY);
+		expectedTransaction.setTransactionDate(transactionDate);
+		expectedTransaction.setAmount(30);
+		expectedTransaction.setPrice(new BigDecimal(165.5));
+		expectedTransaction.setTransactionFee(new BigDecimal(99));
 		
 		//Act
+		HKVTransaction actualTransaction = lineParser.ParseBuySellLine(buyLine);
 		
 		//Assert
-		assert(true);
+		assertEquals(expectedTransaction.getStockName(), actualTransaction.getStockName());
+		assertEquals(expectedTransaction.getTransactionType(), actualTransaction.getTransactionType());
+		assertEquals(expectedTransaction.getTransactionDate(), actualTransaction.getTransactionDate());
+		assertEquals(expectedTransaction.getAmount(), actualTransaction.getAmount());
+		assertEquals(expectedTransaction.getPrice(), actualTransaction.getPrice());
+		assertEquals(expectedTransaction.getTransactionFee(), actualTransaction.getTransactionFee());
 	}
-
 }
