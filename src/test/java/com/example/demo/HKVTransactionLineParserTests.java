@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.After;
