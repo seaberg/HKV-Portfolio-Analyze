@@ -19,7 +19,7 @@ public class HKVTransactionLineParser {
 			if(transactionTypeString.equals("#KÖP")) {
 				transactionType = HKVTransactionType.BUY;
 			}
-			else if(transactionTypeString.equals("SÄLJ")) {
+			else if(transactionTypeString.equals("#SÄLJ")) {
 				transactionType = HKVTransactionType.SELL;
 			}
 			else {

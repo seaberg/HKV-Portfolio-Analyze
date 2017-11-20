@@ -49,4 +49,35 @@ public class HKVTransactionLineParserTests {
 		assertEquals(expectedTransaction.getPrice(), actualTransaction.getPrice());
 		assertEquals(expectedTransaction.getTransactionFee(), actualTransaction.getTransactionFee());
 	}
+	
+	@Test
+	public void TestParseSellLine() throws Exception {
+		//Arrange
+		HKVTransactionLineParser lineParser = new HKVTransactionLineParser();		
+		String sellLine = "#SÄLJ 2014-10-10 30 153.5 99 4506";
+		
+		//There is probably a better way to create a new Date instance
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date transactionDate = dateFormatter.parse("2014-10-10");		
+		
+		HKVTransaction expectedTransaction = new HKVTransaction();
+		expectedTransaction.setStockName("");
+		expectedTransaction.setTransactionType(HKVTransactionType.SELL);
+		expectedTransaction.setTransactionDate(transactionDate);
+		expectedTransaction.setAmount(30);
+		expectedTransaction.setPrice(new BigDecimal(153.5));
+		expectedTransaction.setTransactionFee(new BigDecimal(99));
+		
+		//Act
+		HKVTransaction actualTransaction = lineParser.ParseBuySellLine(sellLine);
+		
+		//Assert
+		assertEquals(expectedTransaction.getStockName(), actualTransaction.getStockName());
+		assertEquals(expectedTransaction.getTransactionType(), actualTransaction.getTransactionType());
+		assertEquals(expectedTransaction.getTransactionDate(), actualTransaction.getTransactionDate());
+		assertEquals(expectedTransaction.getAmount(), actualTransaction.getAmount());
+		assertEquals(expectedTransaction.getPrice(), actualTransaction.getPrice());
+		assertEquals(expectedTransaction.getTransactionFee(), actualTransaction.getTransactionFee());		
+	}
+	
 }
