@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class HKVLine {
+public abstract class HKVLine {
 	private HKVLineType hkvLineType;
 
 	public HKVLineType getHkvLineType() {
@@ -9,5 +9,5 @@ public class HKVLine {
 
 	public void setHkvLineType(HKVLineType hkvLineType) {
 		this.hkvLineType = hkvLineType;
-	}
+	} 
 }
