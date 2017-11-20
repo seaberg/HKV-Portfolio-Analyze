@@ -10,8 +10,8 @@ public class HKVTransactionLineParser {
 	private static final String BUY_SELL_PATTERN = "(#KÖP|#SÄLJ) ([0-9-]+) ([0-9]+) ([0-9.]+) ([0-9.]+) ([0-9.]+)"; 
 	
 	public HKVTransaction ParseBuySellLine(String line) throws Exception {
-		Pattern regex = Pattern.compile(BUY_SELL_PATTERN);
-		Matcher m = regex.matcher(line);
+		Pattern buySellPattern = Pattern.compile(BUY_SELL_PATTERN);
+		Matcher m = buySellPattern.matcher(line);
 		
 		if(m.find()) {
 			HKVTransactionType transactionType;
